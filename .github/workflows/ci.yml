@@ -19,9 +19,12 @@ jobs:
         with:
           node-version: 20
           cache: yarn
+          cache-dependency-path: minimaui/yarn.lock
 
-      - name: Enable corepack (Yarn Berry)
-        run: corepack enable
+      - name: Use Corepack Yarn 3.2.1
+        run: |
+          corepack enable
+          corepack prepare yarn@3.2.1 --activate
 
       - name: Install dependencies
         working-directory: minimaui
@@ -42,4 +45,3 @@ jobs:
       - name: Build
         working-directory: minimaui
         run: yarn build
-
