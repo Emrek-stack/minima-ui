@@ -29,24 +29,24 @@ jobs:
       - name: Check Yarn version
         run: |
           node -v
-          yarn -v
+          corepack yarn -v
 
       - name: Install dependencies
         working-directory: minimaui
-        run: yarn install --immutable
+        run: corepack yarn install --immutable
 
       - name: Typecheck
         working-directory: minimaui
-        run: yarn typecheck
+        run: corepack yarn typecheck
 
       - name: Lint
         working-directory: minimaui
-        run: yarn lint
+        run: corepack yarn lint
 
       - name: Test
         working-directory: minimaui
-        run: yarn test
+        run: corepack yarn test
 
       - name: Build
         working-directory: minimaui
-        run: yarn build
+        run: corepack yarn build
