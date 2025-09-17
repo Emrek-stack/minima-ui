@@ -26,6 +26,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest --run --coverage",
     "generate": "rimraf ./src/components && toolbox icons -o './src/components'",
+    "stories:generate": "node scripts/generate-stories.js",
     "storybook": "storybook dev -p 6007",
     "storybook:build": "storybook build"
   },
