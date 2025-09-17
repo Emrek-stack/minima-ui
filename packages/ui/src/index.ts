@@ -45,6 +45,7 @@ export { Tooltip, TooltipProvider } from "./components/tooltip"
 
 // Blocks
 export * from "./blocks/data-table"
+export * from "./blocks/workflow"
 
 // Hooks
 export { usePrompt } from "./hooks/use-prompt"
