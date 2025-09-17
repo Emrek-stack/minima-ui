@@ -30,6 +30,11 @@ jobs:
           corepack enable
           corepack prepare yarn@3.2.1 --activate
 
+      - name: Check Yarn version
+        run: |
+          node -v
+          yarn -v
+
       - name: Install dependencies
         working-directory: minimaui
         run: yarn install --immutable
