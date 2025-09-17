@@ -1,7 +1,7 @@
 {
   "name": "@minimaui/toolbox",
   "private": true,
-  "version": "2.10.2",
+  "version": "1.0.0",
   "description": "CLI tool for importing Figma designs for Minima UI",
   "license": "MIT",
   "author": "Minima Team",

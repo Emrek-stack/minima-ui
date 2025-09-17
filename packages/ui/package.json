@@ -1,11 +1,11 @@
 {
   "name": "@minimaui/ui",
-  "version": "4.0.22",
+  "version": "1.0.0",
   "author": "Minima Team",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/minimaui/minimaui",
+    "url": "https://github.com/Emrek-stack/minima-ui",
     "directory": "packages/ui"
   },
   "main": "./dist/cjs/index.js",
@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^9.2.0",
-    "@minimaui/ui-preset": "2.10.2",
+    "@minimaui/ui-preset": "1.0.0",
     "@storybook/addon-essentials": "^8.3.5",
     "@storybook/addon-interactions": "^8.3.5",
     "@storybook/addon-links": "^8.3.5",
@@ -85,7 +85,7 @@
     "@dnd-kit/core": "^6.0.0",
     "@dnd-kit/sortable": "^7.0.0",
     "@dnd-kit/utilities": "^3.2.0",
-    "@minimaui/icons": "2.10.2",
+    "@minimaui/icons": "1.0.0",
     "@radix-ui/react-dialog": "1.1.4",
     "@radix-ui/react-dismissable-layer": "1.1.4",
     "@tanstack/react-table": "8.20.5",
