@@ -13,6 +13,8 @@
     "changeset": "changeset",
     "version": "changeset version",
     "release": "changeset publish",
+    "release:local": "node ./scripts/release-local.js",
+    "publish:workspaces": "yarn workspaces foreach --no-private -tv exec npm publish --access public",
     "storybook": "yarn workspace @minimaui/ui build:css && storybook dev -p 6005 -c ./.storybook",
     "storybook:build": "yarn workspace @minimaui/ui build:css && storybook build -c ./.storybook"
   },

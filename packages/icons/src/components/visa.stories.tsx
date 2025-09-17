@@ -4,7 +4,7 @@ import Icon from "./visa"
 const meta: Meta<typeof Icon> = {
   title: "Icons/Visa",
   component: Icon,
-  args: { width: 24, height: 24, color: "currentColor" },
+  args: { width: 24, height: 24 },
 }
 
 export default meta

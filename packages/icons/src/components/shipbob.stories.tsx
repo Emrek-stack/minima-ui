@@ -4,7 +4,7 @@ import Icon from "./shipbob"
 const meta: Meta<typeof Icon> = {
   title: "Icons/Shipbob",
   component: Icon,
-  args: { width: 24, height: 24, color: "currentColor" },
+  args: { width: 24, height: 24 },
 }
 
 export default meta

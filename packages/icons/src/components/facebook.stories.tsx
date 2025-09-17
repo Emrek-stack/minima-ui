@@ -4,7 +4,7 @@ import Icon from "./facebook"
 const meta: Meta<typeof Icon> = {
   title: "Icons/Facebook",
   component: Icon,
-  args: { width: 24, height: 24, color: "currentColor" },
+  args: { width: 24, height: 24 },
 }
 
 export default meta

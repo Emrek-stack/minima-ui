@@ -1059,6 +1059,10 @@ video {
   isolation: isolate;
 }
 
+.z-50 {
+  z-index: 50;
+}
+
 .z-\[1\] {
   z-index: 1;
 }
@@ -1102,6 +1106,14 @@ video {
   box-sizing: border-box;
 }
 
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline;
+}
+
 .flex {
   display: flex;
 }
@@ -1126,9 +1138,19 @@ video {
   aspect-ratio: 1 / 1;
 }
 
+.size-10 {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
 .size-11 {
   width: 2.75rem;
   height: 2.75rem;
+}
+
+.size-12 {
+  width: 3rem;
+  height: 3rem;
 }
 
 .size-3 {
@@ -1875,6 +1897,10 @@ video {
   border-width: 1px;
 }
 
+.border-2 {
+  border-width: 2px;
+}
+
 .border-y {
   border-top-width: 1px;
   border-bottom-width: 1px;
@@ -2112,6 +2138,18 @@ video {
   background-size: 4px 1px;
 }
 
+.fill-current {
+  fill: currentColor;
+}
+
+.fill-transparent {
+  fill: transparent;
+}
+
+.fill-ui-bg-component {
+  fill: var(--bg-component);
+}
+
 .fill-ui-border-base {
   fill: var(--border-base);
 }
@@ -2122,6 +2160,10 @@ video {
 
 .fill-ui-fg-subtle {
   fill: var(--fg-subtle);
+}
+
+.stroke-ui-border-base {
+  stroke: var(--border-base);
 }
 
 .stroke-ui-border-interactive {
@@ -2455,6 +2497,10 @@ video {
 
 .text-ui-border-base {
   color: var(--border-base);
+}
+
+.text-ui-border-interactive {
+  color: var(--border-interactive);
 }
 
 .text-ui-contrast-fg-primary {
@@ -3523,6 +3569,53 @@ video {
 
 .\[\&\>code\]\:text-ui-contrast-fg-primary>code {
   color: var(--contrast-fg-primary);
+}
+
+.\[\&\>div\]\:flex>div {
+  display: flex;
+}
+
+.\[\&\>div\]\:size-11>div {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.\[\&\>div\]\:size-6>div {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.\[\&\>div\]\:size-9>div {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.\[\&\>div\]\:items-center>div {
+  align-items: center;
+}
+
+.\[\&\>div\]\:justify-center>div {
+  justify-content: center;
+}
+
+.\[\&\>div\]\:rounded-\[10px\]>div {
+  border-radius: 10px;
+}
+
+.\[\&\>div\]\:rounded-\[4px\]>div {
+  border-radius: 4px;
+}
+
+.\[\&\>div\]\:rounded-\[6px\]>div {
+  border-radius: 6px;
+}
+
+.\[\&\>div\]\:bg-ui-bg-field>div {
+  background-color: var(--bg-field);
+}
+
+.\[\&\>div\]\:text-ui-fg-subtle>div {
+  color: var(--fg-subtle);
 }
 
 .\[\&\>svg\]\:text-ui-fg-subtle>svg {

@@ -105,6 +105,9 @@
     "react": "^18.0.0 || ^19.0.0 || ^19.0.0-rc",
     "react-dom": "^18.0.0 || ^19.0.0 || ^19.0.0-rc"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "browserslist": [
     "last 3 chrome versions",
     "last 3 firefox versions",

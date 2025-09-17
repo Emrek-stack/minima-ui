@@ -4,7 +4,7 @@ import Icon from "./slack"
 const meta: Meta<typeof Icon> = {
   title: "Icons/Slack",
   component: Icon,
-  args: { width: 24, height: 24, color: "currentColor" },
+  args: { width: 24, height: 24 },
 }
 
 export default meta

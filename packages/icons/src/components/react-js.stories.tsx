@@ -4,7 +4,7 @@ import Icon from "./react-js"
 const meta: Meta<typeof Icon> = {
   title: "Icons/ReactJs",
   component: Icon,
-  args: { width: 24, height: 24, color: "currentColor" },
+  args: { width: 24, height: 24 },
 }
 
 export default meta

@@ -1,18 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import Check from "./check"
+import Icon from "./check"
 
-const meta: Meta<typeof Check> = {
+const meta: Meta<typeof Icon> = {
   title: "Icons/Check",
-  component: Check,
-  args: {
-    width: 24,
-    height: 24,
-    color: "currentColor",
-  },
+  component: Icon,
+  args: { width: 24, height: 24, color: "currentColor" },
 }
 
 export default meta
-type Story = StoryObj<typeof Check>
+type Story = StoryObj<typeof Icon>
 
 export const Default: Story = {}
-

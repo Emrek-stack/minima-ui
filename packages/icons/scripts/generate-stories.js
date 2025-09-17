@@ -41,18 +41,17 @@ async function main() {
       skipped++
       continue
     }
-    // Skip if story already exists
-    if (fs.existsSync(storyPath)) {
-      skipped++
-      continue
-    }
+    // Detect if component omits color prop (brand icons)
+    const srcPath = fs.existsSync(compPathTsx) ? compPathTsx : compPathTs
+    const srcContent = fs.readFileSync(srcPath, 'utf8')
+    const omitsColor = /Omit<\s*IconProps\s*,\s*"color"\s*>/.test(srcContent)
 
     const story = `import type { Meta, StoryObj } from "@storybook/react"\n` +
 `import Icon from "./${base}"\n\n` +
 `const meta: Meta<typeof Icon> = {\n` +
 `  title: "Icons/${name}",\n` +
 `  component: Icon,\n` +
-`  args: { width: 24, height: 24, color: "currentColor" },\n` +
+`  args: { width: 24, height: 24${omitsColor ? '' : ', color: "currentColor"'} },\n` +
 `}\n\n` +
 `export default meta\n` +
 `type Story = StoryObj<typeof Icon>\n\n` +
@@ -69,4 +68,3 @@ main().catch((err) => {
   console.error(err)
   process.exit(1)
 })
-
