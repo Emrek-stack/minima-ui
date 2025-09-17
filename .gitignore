@@ -1,0 +1,17 @@
+node_modules/
+.DS_Store
+dist/
+build/
+.turbo/
+.storybook-out/
+*.log
+yarn-error.log
+.env*
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+

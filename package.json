@@ -1,0 +1,20 @@
+{
+  "name": "minimaui-monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "packageManager": "yarn@3.2.1",
+  "scripts": {
+    "build": "yarn workspaces foreach -tv run build",
+    "test": "yarn workspaces foreach -tv run test",
+    "typecheck": "yarn workspaces foreach -tv run typecheck || true",
+    "lint": "yarn workspaces foreach -tv run lint || true",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.8"
+  }
+}
