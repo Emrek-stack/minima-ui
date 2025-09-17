@@ -1,8 +1,8 @@
 import { withThemeByDataAttribute } from "@storybook/addon-styling"
 import type { Preview } from "@storybook/react"
 
-// Use UI package styles globally in Storybook
-import "../packages/ui/src/main.css"
+// Use prebuilt UI styles for reliable Tailwind tokens in root Storybook
+import "../packages/ui/styles.css"
 
 export const decorators = [
   withThemeByDataAttribute({
@@ -28,4 +28,3 @@ const preview: Preview = {
 }
 
 export default preview
-
