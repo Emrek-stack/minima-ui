@@ -3,8 +3,7 @@ import {
   Heading, 
   Text, 
   Container, 
-  Button,
-  Badge
+  Button
 } from '@minimaui/ui'
 import { Plus, PencilSquare, Trash } from '@minimaui/icons'
 // import { createColumnHelper } from '@tanstack/react-table'
@@ -17,7 +16,7 @@ import { Category } from '../types'
 // const columnHelper = createColumnHelper<Category>()
 
 export function CategoriesPage() {
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, _setSearchQuery] = useState('')
   const { data: categoriesData, isLoading } = useCategories({ 
     q: searchQuery || undefined 
   })
@@ -122,13 +121,14 @@ export function CategoriesPage() {
         </Button>
       </div>
 
-      <Container className="p-6">
+      <Container className="p-0">
         <DataTable
-          data={categoriesData?.data || []}
           columns={columns}
+          data={categoriesData || []}
           isLoading={isLoading}
-          searchable
-          onSearch={setSearchQuery}
+          enableFiltering={true}
+          searchPlaceholder="Kategori ara..."
+          getRowId={(category) => category.id}
         />
       </Container>
     </div>

@@ -1,48 +1,24 @@
-import { ReactNode, useState } from 'react'
-import { 
-  SidebarLeft, 
-  TriangleRightMini, 
-  XMark,
-  MagnifyingGlass,
-  CogSixTooth,
-  House,
-  Users,
-  ShoppingCart,
-  BuildingStorefront,
-  Tag,
-  SquaresPlus
-} from '@minimaui/icons'
-import { 
-  IconButton, 
-  Avatar, 
-  Divider, 
-  DropdownMenu, 
-  Text, 
-  clx,
-  Button
-} from '@minimaui/ui'
-import { AnimatePresence } from 'motion/react'
-import { Dialog as RadixDialog } from 'radix-ui'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../providers/AuthProvider'
-import { useTheme } from '../../providers/ThemeProvider'
+import { SidebarLeft, TriangleRightMini, XMark } from "@minimaui/icons"
+import { IconButton, clx } from "@minimaui/ui"
+import { AnimatePresence } from "motion/react"
+import { Dialog as RadixDialog } from "radix-ui"
+import { PropsWithChildren, useEffect, useState } from "react"
+import { Link, Outlet, useLocation } from "react-router-dom"
 
-interface DashboardLayoutProps {
-  children: ReactNode
-}
+import { useSidebar } from "../../hooks/useSidebar"
+import { ProgressBar } from "../common/ProgressBar"
+import { Notifications } from "./Notifications"
+import { MainSidebar } from "./MainSidebar"
 
-export function DashboardLayout({ children }: DashboardLayoutProps) {
-  const [showBar, setShowBar] = useState(false)
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+export const DashboardLayout = ({ children: _children }: PropsWithChildren) => {
+  const navigation = { state: "idle" } // Mock navigation state
+  const loading = navigation.state === "loading"
 
   return (
     <div className="relative flex h-screen flex-col items-start overflow-hidden lg:flex-row">
-      <NavigationBar showBar={showBar} />
+      <NavigationBar loading={loading} />
       <div>
-        <MobileSidebarContainer 
-          open={sidebarOpen} 
-          onOpenChange={setSidebarOpen}
-        >
+        <MobileSidebarContainer>
           <MainSidebar />
         </MobileSidebarContainer>
         <DesktopSidebarContainer>
@@ -50,10 +26,17 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         </DesktopSidebarContainer>
       </div>
       <div className="flex h-screen w-full flex-col overflow-auto">
-        <Topbar onToggleSidebar={() => setSidebarOpen(true)} />
-        <main className="flex h-full w-full flex-col items-center overflow-y-auto">
+        <Topbar />
+        <main
+          className={clx(
+            "flex h-full w-full flex-col items-center overflow-y-auto transition-opacity delay-200 duration-200",
+            {
+              "opacity-25": loading,
+            }
+          )}
+        >
           <Gutter>
-            {children}
+            <Outlet />
           </Gutter>
         </main>
       </div>
@@ -61,19 +44,37 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   )
 }
 
-const NavigationBar = ({ showBar }: { showBar: boolean }) => {
+const NavigationBar = ({ loading }: { loading: boolean }) => {
+  const [showBar, setShowBar] = useState(false)
+
+  /**
+   * If the loading state is true, we want to show the bar after a short delay.
+   * The delay is used to prevent the bar from flashing on quick navigations.
+   */
+  useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>
+
+    if (loading) {
+      timeout = setTimeout(() => {
+        setShowBar(true)
+      }, 200)
+    } else {
+      setShowBar(false)
+    }
+
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [loading])
+
   return (
     <div className="fixed inset-x-0 top-0 z-50 h-1">
-      <AnimatePresence>
-        {showBar && (
-          <div className="h-full w-full bg-ui-fg-interactive animate-pulse" />
-        )}
-      </AnimatePresence>
+      <AnimatePresence>{showBar ? <ProgressBar /> : null}</AnimatePresence>
     </div>
   )
 }
 
-const Gutter = ({ children }: { children: ReactNode }) => {
+const Gutter = ({ children }: PropsWithChildren) => {
   return (
     <div className="flex w-full max-w-[1600px] flex-col gap-y-2 p-3">
       {children}
@@ -81,73 +82,50 @@ const Gutter = ({ children }: { children: ReactNode }) => {
   )
 }
 
-const ToggleSidebar = ({ onToggle }: { onToggle: () => void }) => {
-  return (
-    <div>
-      <IconButton
-        className="hidden lg:flex"
-        variant="transparent"
-        onClick={onToggle}
-        size="small"
-      >
-        <SidebarLeft className="text-ui-fg-muted" />
-      </IconButton>
-      <IconButton
-        className="hidden max-lg:flex"
-        variant="transparent"
-        onClick={onToggle}
-        size="small"
-      >
-        <SidebarLeft className="text-ui-fg-muted" />
-      </IconButton>
-    </div>
-  )
-}
-
-const Topbar = ({ onToggleSidebar }: { onToggleSidebar: () => void }) => {
-  return (
-    <div className="grid w-full grid-cols-2 border-b p-3">
-      <div className="flex items-center gap-x-1.5">
-        <ToggleSidebar onToggle={onToggleSidebar} />
-        <Breadcrumbs />
-      </div>
-      <div className="flex items-center justify-end gap-x-3">
-        <ThemeToggle />
-        <UserMenu />
-      </div>
-    </div>
-  )
-}
-
 const Breadcrumbs = () => {
   const location = useLocation()
-  const pathSegments = location.pathname.split('/').filter(Boolean)
-  
-  const breadcrumbLabels: Record<string, string> = {
-    home: 'Ana Sayfa',
-    settings: 'Ayarlar',
-    users: 'Kullanıcılar',
-    orders: 'Siparişler',
-    products: 'Ürünler'
-  }
+  const pathnames = location.pathname.split('/').filter((x) => x)
 
   return (
-    <ol className="text-ui-fg-muted txt-compact-small-plus flex select-none items-center">
-      {pathSegments.map((segment, index) => {
-        const isLast = index === pathSegments.length - 1
-        const label = breadcrumbLabels[segment] || segment
-
+    <ol
+      className={clx(
+        "text-ui-fg-muted txt-compact-small-plus flex select-none items-center"
+      )}
+    >
+      <li className="flex items-center">
+        <Link
+          className="transition-fg hover:text-ui-fg-subtle"
+          to="/"
+        >
+          Ana Sayfa
+        </Link>
+        {pathnames.length > 0 && (
+          <span className="mx-2">
+            <TriangleRightMini />
+          </span>
+        )}
+      </li>
+      {pathnames.map((name, index) => {
+        const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`
+        const isLast = index === pathnames.length - 1
         return (
-          <li key={index} className="flex items-center">
+          <li key={name} className={clx("flex items-center")}>
             {!isLast ? (
               <Link
                 className="transition-fg hover:text-ui-fg-subtle"
-                to={`/${pathSegments.slice(0, index + 1).join('/')}`}
+                to={routeTo}
               >
-                {label}
+                {name.charAt(0).toUpperCase() + name.slice(1)}
               </Link>
             ) : (
-              <span>{label}</span>
+              <span
+                key={index}
+                className={clx({
+                  "hidden lg:block": pathnames.length > 1,
+                })}
+              >
+                {name.charAt(0).toUpperCase() + name.slice(1)}
+              </span>
             )}
             {!isLast && (
               <span className="mx-2">
@@ -161,83 +139,77 @@ const Breadcrumbs = () => {
   )
 }
 
-const ThemeToggle = () => {
-  const { theme, setTheme, resolvedTheme } = useTheme()
+const ToggleSidebar = () => {
+  const { toggle } = useSidebar()
 
   return (
-    <DropdownMenu>
-      <DropdownMenu.Trigger asChild>
-        <Button variant="transparent" size="small">
-          {resolvedTheme === 'dark' ? '🌙' : '☀️'}
-        </Button>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Content>
-        <DropdownMenu.Item onClick={() => setTheme('light')}>
-          ☀️ Açık Tema
-        </DropdownMenu.Item>
-        <DropdownMenu.Item onClick={() => setTheme('dark')}>
-          🌙 Koyu Tema
-        </DropdownMenu.Item>
-        <DropdownMenu.Item onClick={() => setTheme('system')}>
-          💻 Sistem Teması
-        </DropdownMenu.Item>
-      </DropdownMenu.Content>
-    </DropdownMenu>
+    <div>
+      <IconButton
+        className="hidden lg:flex"
+        variant="transparent"
+        onClick={() => toggle("desktop")}
+        size="small"
+      >
+        <SidebarLeft className="text-ui-fg-muted" />
+      </IconButton>
+      <IconButton
+        className="hidden max-lg:flex"
+        variant="transparent"
+        onClick={() => toggle("mobile")}
+        size="small"
+      >
+        <SidebarLeft className="text-ui-fg-muted" />
+      </IconButton>
+    </div>
   )
 }
 
-const UserMenu = () => {
-  const { user, logout } = useAuth()
-  const navigate = useNavigate()
-
-  const handleLogout = () => {
-    logout()
-    navigate('/login')
-  }
-
-  if (!user) return null
-
+const Topbar = () => {
   return (
-    <DropdownMenu>
-      <DropdownMenu.Trigger asChild>
-        <Button variant="transparent" size="small" className="gap-x-2">
-          <Avatar size="xsmall" fallback={user.name.charAt(0).toUpperCase()} />
-          <Text size="small">{user.name}</Text>
-        </Button>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Content>
-        <DropdownMenu.Item onClick={handleLogout}>
-          <div className="flex items-center gap-x-2">
-            <span>Çıkış Yap</span>
-          </div>
-        </DropdownMenu.Item>
-      </DropdownMenu.Content>
-    </DropdownMenu>
+    <div className="grid w-full grid-cols-2 border-b p-3">
+      <div className="flex items-center gap-x-1.5">
+        <ToggleSidebar />
+        <Breadcrumbs />
+      </div>
+      <div className="flex items-center justify-end gap-x-3">
+        <Notifications />
+      </div>
+    </div>
   )
 }
 
-const DesktopSidebarContainer = ({ children }: { children: ReactNode }) => {
+const DesktopSidebarContainer = ({ children }: PropsWithChildren) => {
+  const { desktop } = useSidebar()
+
   return (
-    <div className="hidden h-screen w-[220px] border-r lg:flex">
+    <div
+      className={clx("hidden h-screen w-[220px] border-r", {
+        "lg:flex": desktop,
+      })}
+    >
       {children}
     </div>
   )
 }
 
-const MobileSidebarContainer = ({ 
-  children, 
-  open, 
-  onOpenChange 
-}: { 
-  children: ReactNode
-  open: boolean
-  onOpenChange: (open: boolean) => void 
-}) => {
+const MobileSidebarContainer = ({ children }: PropsWithChildren) => {
+  const { mobile, toggle } = useSidebar()
+
   return (
-    <RadixDialog.Root open={open} onOpenChange={onOpenChange}>
+    <RadixDialog.Root open={mobile} onOpenChange={() => toggle("mobile")}>
       <RadixDialog.Portal>
-        <RadixDialog.Overlay className="bg-ui-bg-overlay fixed inset-0 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-        <RadixDialog.Content className="bg-ui-bg-subtle shadow-elevation-modal fixed inset-y-2 left-2 flex w-full max-w-[304px] flex-col overflow-hidden rounded-lg border-r data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-left-1/2 data-[state=open]:slide-in-from-left-1/2 duration-200">
+        <RadixDialog.Overlay
+          className={clx(
+            "bg-ui-bg-overlay fixed inset-0",
+            "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+          )}
+        />
+        <RadixDialog.Content
+          className={clx(
+            "bg-ui-bg-subtle shadow-elevation-modal fixed inset-y-2 left-2 flex w-full max-w-[304px] flex-col overflow-hidden rounded-lg border-r",
+            "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-left-1/2 data-[state=open]:slide-in-from-left-1/2 duration-200"
+          )}
+        >
           <div className="p-3">
             <RadixDialog.Close asChild>
               <IconButton
@@ -249,7 +221,7 @@ const MobileSidebarContainer = ({
               </IconButton>
             </RadixDialog.Close>
             <RadixDialog.Title className="sr-only">
-              Navigasyon Menüsü
+              Navigasyon
             </RadixDialog.Title>
             <RadixDialog.Description className="sr-only">
               Ana navigasyon menüsü
@@ -259,150 +231,5 @@ const MobileSidebarContainer = ({
         </RadixDialog.Content>
       </RadixDialog.Portal>
     </RadixDialog.Root>
-  )
-}
-
-const MainSidebar = () => {
-  return (
-    <aside className="flex flex-1 flex-col justify-between overflow-y-auto">
-      <div className="flex flex-1 flex-col">
-        <div className="bg-ui-bg-subtle sticky top-0">
-          <Header />
-          <div className="px-3">
-            <Divider variant="dashed" />
-          </div>
-        </div>
-        <div className="flex flex-1 flex-col justify-between">
-          <div className="flex flex-1 flex-col">
-            <CoreRouteSection />
-          </div>
-          <UtilitySection />
-        </div>
-      </div>
-    </aside>
-  )
-}
-
-const Header = () => {
-  const { user } = useAuth()
-  
-  if (!user) return null
-
-  const fallback = user.name.charAt(0).toUpperCase()
-
-  return (
-    <div className="w-full p-3">
-      <div className="bg-ui-bg-subtle transition-fg grid w-full grid-cols-[24px_1fr] items-center gap-x-3 rounded-md p-0.5 pr-2">
-        <Avatar variant="squared" size="xsmall" fallback={fallback} />
-        <div className="block overflow-hidden text-left">
-          <Text
-            size="small"
-            weight="plus"
-            leading="compact"
-            className="truncate"
-          >
-            {user.name}
-          </Text>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-const Searchbar = () => {
-  return (
-    <div className="px-3">
-      <button
-        className="bg-ui-bg-subtle text-ui-fg-subtle flex w-full items-center gap-x-2.5 rounded-md px-2 py-1 outline-none hover:bg-ui-bg-subtle-hover focus-visible:shadow-borders-focus"
-      >
-        <MagnifyingGlass />
-        <div className="flex-1 text-left">
-          <Text size="small" leading="compact" weight="plus">
-            Ara...
-          </Text>
-        </div>
-        <Text size="small" leading="compact" className="text-ui-fg-muted">
-          ⌘K
-        </Text>
-      </button>
-    </div>
-  )
-}
-
-const CoreRouteSection = () => {
-  const location = useLocation()
-
-  const routes = [
-    {
-      icon: <House />,
-      label: 'Ana Sayfa',
-      to: '/home',
-    },
-    {
-      icon: <BuildingStorefront />,
-      label: 'Ürünler',
-      to: '/products',
-    },
-    {
-      icon: <Tag />,
-      label: 'Kategoriler',
-      to: '/categories',
-    },
-    {
-      icon: <ShoppingCart />,
-      label: 'Siparişler',
-      to: '/orders',
-    },
-    {
-      icon: <Users />,
-      label: 'Kullanıcılar',
-      to: '/users',
-    },
-  ]
-
-  return (
-    <nav className="flex flex-col gap-y-1 py-3">
-      <Searchbar />
-      {routes.map((route) => {
-        const isActive = location.pathname === route.to
-        return (
-          <Link
-            key={route.to}
-            to={route.to}
-            className={clx(
-              "flex items-center gap-x-3 rounded-md px-3 py-1.5 text-sm transition-colors",
-              isActive
-                ? "bg-ui-bg-interactive text-ui-fg-on-color"
-                : "text-ui-fg-subtle hover:bg-ui-bg-subtle-hover hover:text-ui-fg-base"
-            )}
-          >
-            {route.icon}
-            {route.label}
-          </Link>
-        )
-      })}
-    </nav>
-  )
-}
-
-const UtilitySection = () => {
-  const location = useLocation()
-  const isActive = location.pathname === '/settings'
-
-  return (
-    <div className="flex flex-col gap-y-0.5 py-3">
-      <Link
-        to="/settings"
-        className={clx(
-          "flex items-center gap-x-3 rounded-md px-3 py-1.5 text-sm transition-colors",
-          isActive
-            ? "bg-ui-bg-interactive text-ui-fg-on-color"
-            : "text-ui-fg-subtle hover:bg-ui-bg-subtle-hover hover:text-ui-fg-base"
-        )}
-      >
-        <CogSixTooth />
-        Ayarlar
-      </Link>
-    </div>
   )
 }

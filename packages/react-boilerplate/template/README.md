@@ -107,3 +107,4 @@ Tema ayarları `src/providers/ThemeProvider.tsx` dosyasında yönetilir:
 ## Lisans
 
 MIT License - Detaylar için [LICENSE](LICENSE) dosyasına bakın.
+

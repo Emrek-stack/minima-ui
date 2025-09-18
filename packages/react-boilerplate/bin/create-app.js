@@ -71,3 +71,4 @@ function copyTemplate(src, dest) {
     fs.copyFileSync(src, dest);
   }
 }
+

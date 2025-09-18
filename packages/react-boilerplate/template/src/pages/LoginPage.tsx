@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Alert, Button, Heading, Hint, Input, Text } from "@minimaui/ui"
 import { useForm } from "react-hook-form"
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import * as z from "zod"
 import { useAuth } from "../providers/AuthProvider"
 
@@ -120,3 +120,4 @@ export function LoginPage() {
     </div>
   )
 }
+

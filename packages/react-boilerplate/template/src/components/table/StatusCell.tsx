@@ -30,3 +30,4 @@ export const StatusCell = ({ color = "grey", children }: StatusCellProps) => {
     </div>
   )
 }
+

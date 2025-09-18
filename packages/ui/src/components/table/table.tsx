@@ -47,7 +47,7 @@ Row.displayName = "Table.Row"
 
 const Cell = React.forwardRef<
   HTMLTableCellElement,
-  React.HTMLAttributes<HTMLTableCellElement>
+  React.TdHTMLAttributes<HTMLTableCellElement>
 >(({ className, ...props }, ref) => (
   <td ref={ref} className={clx("h-12 py-0 pl-0 pr-6", className)} {...props} />
 ))

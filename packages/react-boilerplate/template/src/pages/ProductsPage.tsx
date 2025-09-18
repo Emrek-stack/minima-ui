@@ -18,7 +18,7 @@ import { Product } from '../types'
 // const columnHelper = createColumnHelper<Product>()
 
 export function ProductsPage() {
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, _setSearchQuery] = useState('')
   const { data: productsData, isLoading } = useProducts({ 
     q: searchQuery || undefined 
   })
@@ -166,11 +166,12 @@ export function ProductsPage() {
 
       <Container className="p-6">
         <DataTable
-          data={productsData?.data || []}
           columns={columns}
+          data={productsData || []}
           isLoading={isLoading}
-          searchable
-          onSearch={setSearchQuery}
+          enableFiltering={true}
+          searchPlaceholder="Ürün ara..."
+          getRowId={(product) => product.id}
         />
       </Container>
     </div>

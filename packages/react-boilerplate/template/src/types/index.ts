@@ -57,3 +57,4 @@ export interface TableQuery {
   limit?: number
   order?: string
 }
+
