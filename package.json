@@ -14,18 +14,12 @@
     "version": "changeset version",
     "release": "changeset publish",
     "release:local": "node ./scripts/release-local.js",
-    "publish:workspaces": "yarn workspaces foreach --no-private -tv exec npm publish --access public",
     "storybook": "yarn workspace @minimaui/ui build:css && storybook dev -p 6005 -c ./.storybook",
     "storybook:build": "yarn workspace @minimaui/ui build:css && storybook build -c ./.storybook",
-    "release:npm": "node ./scripts/release-npm.js",
-    "release:npm:minor": "node ./scripts/release-npm.js --bump minor",
-    "release:npm:patch": "node ./scripts/release-npm.js --bump patch",
-    "release:npm:major": "node ./scripts/release-npm.js --bump major",
     "release:yarn": "node ./scripts/release-yarn.js",
     "release:yarn:minor": "node ./scripts/release-yarn.js --bump minor",
     "release:yarn:patch": "node ./scripts/release-yarn.js --bump patch",
-    "release:yarn:major": "node ./scripts/release-yarn.js --bump major",
-    "update-deps": "node ./scripts/update-dependencies.js"
+    "release:yarn:major": "node ./scripts/release-yarn.js --bump major"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.8",
