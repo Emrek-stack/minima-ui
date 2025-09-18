@@ -1,6 +1,6 @@
 {
   "name": "@minimaui/ui",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Minima Team",
   "license": "MIT",
   "repository": {
@@ -117,8 +117,5 @@
     "last 3 chromeandroid versions",
     "last 1 firefoxandroid versions",
     "ios >= 13.4"
-  ],
-  "publishConfig": {
-    "access": "public"
-  }
+  ]
 }

@@ -1464,12 +1464,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@minimaui/icons@2.10.2, @minimaui/icons@workspace:packages/icons":
+"@minimaui/icons@1.0.0, @minimaui/icons@workspace:packages/icons":
   version: 0.0.0-use.local
   resolution: "@minimaui/icons@workspace:packages/icons"
   dependencies:
     "@atomico/rollup-plugin-sizes": ^1.1.4
-    "@minimaui/toolbox": 2.10.2
+    "@minimaui/toolbox": 1.0.0
     "@rollup/plugin-node-resolve": ^15.1.0
     "@rollup/plugin-replace": ^5.0.2
     "@storybook/addon-essentials": ^8.3.5
@@ -1506,7 +1506,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@minimaui/toolbox@2.10.2, @minimaui/toolbox@workspace:packages/toolbox":
+"@minimaui/toolbox@1.0.0, @minimaui/toolbox@workspace:packages/toolbox":
   version: 0.0.0-use.local
   resolution: "@minimaui/toolbox@workspace:packages/toolbox"
   dependencies:
@@ -1532,11 +1532,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@minimaui/ui-preset@2.10.2, @minimaui/ui-preset@workspace:packages/ui-preset":
+"@minimaui/ui-preset@1.0.0, @minimaui/ui-preset@workspace:packages/ui-preset":
   version: 0.0.0-use.local
   resolution: "@minimaui/ui-preset@workspace:packages/ui-preset"
   dependencies:
-    "@minimaui/toolbox": 2.10.2
+    "@minimaui/toolbox": 1.0.0
     "@tailwindcss/forms": ^0.5.3
     tailwindcss: ^3.4.1
     tailwindcss-animate: ^1.0.6
@@ -1555,8 +1555,8 @@ __metadata:
     "@dnd-kit/sortable": ^7.0.0
     "@dnd-kit/utilities": ^3.2.0
     "@faker-js/faker": ^9.2.0
-    "@minimaui/icons": 2.10.2
-    "@minimaui/ui-preset": 2.10.2
+    "@minimaui/icons": 1.0.0
+    "@minimaui/ui-preset": 1.0.0
     "@radix-ui/react-dialog": 1.1.4
     "@radix-ui/react-dismissable-layer": 1.1.4
     "@storybook/addon-essentials": ^8.3.5
@@ -6603,11 +6603,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 24.5.1
-  resolution: "@types/node@npm:24.5.1"
+  version: 24.5.2
+  resolution: "@types/node@npm:24.5.2"
   dependencies:
     undici-types: ~7.12.0
-  checksum: 0ebce62e3eb4c429cb2111e36cc9e1036b264a740e79550ae2ae7ebe4ad396ede5c2ff4b574ee001c617136a1fd8895eb3ea4419d9485ae86a6306bbf684bc7a
+  checksum: 5d859c117a3e15e2e7cca429ba2db9b7c5ef167eb6386ab3db9f9aad7f705baee45957ad11d6c3d7514dc189ee9ec311905944dfbe9823497ad80a9f15add048
   languageName: node
   linkType: hard
 
@@ -6626,11 +6626,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:^18.0.0":
-  version: 18.19.126
-  resolution: "@types/node@npm:18.19.126"
+  version: 18.19.127
+  resolution: "@types/node@npm:18.19.127"
   dependencies:
     undici-types: ~5.26.4
-  checksum: d24609aeccd977045474c44dfdedc194cb5a226d23b63c79c5203cfeddd067d77225b3c8fb8d1ffd596c2142e52ed1cc7c5095e49a1ddeeccb976ae96533f68e
+  checksum: aefbe13a03a40749bafd45f70bccd1f9816f7a79a25f06f23e87786f90b0cc2b865a6779993b1b5e2333c689c612e2579dc4c683ef7d5b6f16255a8c759ea564
   languageName: node
   linkType: hard
 
@@ -8302,9 +8302,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.218":
-  version: 1.5.220
-  resolution: "electron-to-chromium@npm:1.5.220"
-  checksum: 9cf68f93fdc23cfd80eb2ef15c5c0ab48b0a4ba7bafe697097075b81bdea23c8e8135f7bade04aa0818d64e5bc74112dbebebf20087e46d3aae9ce1f5f5534d2
+  version: 1.5.221
+  resolution: "electron-to-chromium@npm:1.5.221"
+  checksum: a158e1fe6af0f77243c5354fa116e049caefb1230e358f04fde4f9281f2def33046917a9f14e58064bc5dc5ceefb1aa086c81236996c65c12e26366b5a06f840
   languageName: node
   linkType: hard
 
@@ -13692,8 +13692,8 @@ __metadata:
   linkType: hard
 
 "vite@npm:^5.0.0 || ^6.0.0 || ^7.0.0-0":
-  version: 7.1.5
-  resolution: "vite@npm:7.1.5"
+  version: 7.1.6
+  resolution: "vite@npm:7.1.6"
   dependencies:
     esbuild: ^0.25.0
     fdir: ^6.5.0
@@ -13742,7 +13742,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 14922d98024a1d93ebe8f3ce38af586c83d55f037f8c5fe8664103d7aa0785d0747f3edf8cb6550dcfa071b90bfd40bce56581d9cb14a19a53d29abb9f3415f5
+  checksum: 3a43355d210bd3ef1dc96de337c1103f1ae6c9ad1ed969c6175e196fca06f1d2c44f8f2d69dd453f19261dfc26a9a4e408f70f6302caa5b7b613549aec501cfe
   languageName: node
   linkType: hard
 
